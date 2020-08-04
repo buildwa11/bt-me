@@ -23,7 +23,7 @@ RUN cd /home \
     && echo y | bash install.sh \
 #注释掉，不需要设置密码    && python /set_default.py \
     && echo '["linuxsys", "webssh"]' > /www/server/panel/config/index.json \
-    && yum clean all
+    && yum clean all \
     && bt default
 
 WORKDIR /www/wwwroot
