@@ -13,6 +13,7 @@ RUN mkdir -p /www/letsencrypt \
     && chmod +x /entrypoint.sh \
     && mkdir /www/wwwroot
     
+    
 #更新系统 安装依赖 安装宝塔面板
 RUN cd /home \
     && yum -y update \
