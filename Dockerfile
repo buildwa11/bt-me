@@ -21,7 +21,7 @@ RUN cd /home \
     && echo 'Port 63322' > /etc/ssh/sshd_config \
     && wget -O install.sh http://download.bt.cn/install/install_6.0.sh \
     && echo y | bash install.sh \
-    && python /set_default.py \
+#注释掉，不需要设置密码    && python /set_default.py \
     && echo '["linuxsys", "webssh"]' > /www/server/panel/config/index.json \
     && yum clean all
     && bt default
