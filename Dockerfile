@@ -20,10 +20,8 @@ RUN cd /home \
     && yum -y update \
     && yum -y install wget httpd unzip 
 RUN
-    systemctl start httpd \
-    && systemctl enable httpd \
-    && systemctl enable httpd.service \
-    && systemctl restart httpd.service \
+    service httpd start \
+    && service httpd restart \
 RUN yum install php-mysql \
     && yum clean all \
     && yum makecache
