@@ -18,13 +18,13 @@ RUN mkdir -p /www/letsencrypt \
 #更新系统 安装依赖
 RUN cd /home \
     && yum -y update \
-    && yum -y install wget httpd unzip \
-    && systemctl start httpd \
+    && yum -y install wget httpd unzip 
+RUN
+    systemctl start httpd \
     && systemctl enable httpd \
     && systemctl enable httpd.service \
     && systemctl restart httpd.service \
-    && yum install php-mysql \
-    && yum install php-mysql \
+RUN yum install php-mysql \
     && yum clean all \
     && yum makecache
 #配置数据库
