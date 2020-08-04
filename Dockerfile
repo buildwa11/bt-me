@@ -1,9 +1,9 @@
 FROM centos:7
 MAINTAINER pch18.cn
 
-#设置entrypoint和letsencrypt映射到www文件夹下持久化
+#设置entrypoint映射到www文件夹下持久化
 COPY entrypoint.sh /entrypoint.sh
-COPY set_default.py /set_default.py
+COPY Mysql.sh /Mysql.sh
 
 RUN mkdir -p /www/letsencrypt \
     && ln -s /www/letsencrypt /etc/letsencrypt \
@@ -11,23 +11,34 @@ RUN mkdir -p /www/letsencrypt \
     && mkdir /www/init.d \
     && ln -s /www/init.d /etc/init.d \
     && chmod +x /entrypoint.sh \
+    && chmod +x /Mysql.sh \
     && mkdir /www/wwwroot
     
     
-#更新系统 安装依赖 安装宝塔面板
+#更新系统 安装依赖
 RUN cd /home \
     && yum -y update \
-    && yum -y install wget openssh-server \
-    && echo 'Port 63322' > /etc/ssh/sshd_config \
-    && wget -O install.sh http://download.bt.cn/install/install_6.0.sh \
-    && echo y | bash install.sh \
-#注释掉，不需要设置密码    && python /set_default.py \
-    && echo '["linuxsys", "webssh"]' > /www/server/panel/config/index.json \
+    && yum -y install wget httpd unzip \
+    && systemctl start httpd \
+    && systemctl enable httpd \
+    && systemctl enable httpd.service \
+    && systemctl restart httpd.service \
+    && yum install php-mysql \
+    && yum install php-mysql \
     && yum clean all \
-    && bt default
+    && yum makecache
+#配置数据库
+RUN echo y | bash /Mysql.sh
+#配置Wordpress
+RUN wget https://cn.wordpress.org/latest-zh_CN.zip \
+    && unzip latest-zh_CN.zip \
+    &&cp -r wordpress/* /var/www/html/ \
+    
+    
+
 
 WORKDIR /www/wwwroot
 CMD /entrypoint.sh
-EXPOSE 8888 888 21 20 443 80
+EXPOSE 80 443 3306 888
 
-HEALTHCHECK --interval=5s --timeout=3s CMD curl -fs http://localhost:8888/ && curl -fs http://localhost/ || exit 1 
+HEALTHCHECK --interval=5s --timeout=3s CMD curl -fs http://localhost:80/ && curl -fs http://localhost/ || exit 1 
