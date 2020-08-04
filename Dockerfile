@@ -23,6 +23,7 @@ RUN cd /home \
     && python /set_default.py \
     && echo '["linuxsys", "webssh"]' > /www/server/panel/config/index.json \
     && yum clean all
+    && bt default
 
 WORKDIR /www/wwwroot
 CMD /entrypoint.sh
