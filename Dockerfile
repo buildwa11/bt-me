@@ -1,5 +1,5 @@
 FROM centos:7
-MAINTAINER pch18.cn
+MAINTAINER xinb
 
 #设置entrypoint映射到www文件夹下持久化
 COPY entrypoint.sh /entrypoint.sh
