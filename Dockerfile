@@ -19,9 +19,9 @@ RUN mkdir -p /www/letsencrypt \
 RUN cd /home \
     && yum -y update \
     && yum -y install wget httpd unzip 
-RUN yum install php-mysql \
-    && yum clean all \
-    && yum makecache
+RUN yum -y install php-mysql \
+    && yum -y clean all \
+    && yum -y makecache
 #配置数据库
 RUN echo y | bash /Mysql.sh
 #配置Wordpress
