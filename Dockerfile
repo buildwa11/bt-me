@@ -27,7 +27,7 @@ RUN echo y | bash /Mysql.sh
 #配置Wordpress
 RUN wget https://cn.wordpress.org/latest-zh_CN.zip \
     && unzip latest-zh_CN.zip \
-    &&cp -r wordpress/* /var/www/html/ \
+    &&cp -r wordpress/* /var/www/html/
     
 CMD /entrypoint.sh
 EXPOSE 80 443 3306 888
