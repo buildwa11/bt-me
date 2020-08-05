@@ -20,7 +20,7 @@ yum install -y mysql-community-server
 
 # 启动mysql服务
 systemctl start mysqld.service
-
+systemctl start httpd.service
 # 查看mysql服务状态
 systemctl status mysqld.service
 
