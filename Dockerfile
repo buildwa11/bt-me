@@ -18,8 +18,8 @@ RUN mkdir -p /www/letsencrypt \
 #更新系统 安装依赖
 RUN cd /home \
     && yum -y update \
-    && yum -y install wget httpd unzip 
-RUN yum -y install php-mysql \
+    && yum -y install wget httpd unzip \
+    &&yum -y install php-mysql \
     && yum -y clean all \
     && yum -y makecache
 #配置数据库
@@ -29,10 +29,6 @@ RUN wget https://cn.wordpress.org/latest-zh_CN.zip \
     && unzip latest-zh_CN.zip \
     &&cp -r wordpress/* /var/www/html/ \
     
-    
-
-
-WORKDIR /www/wwwroot
 CMD /entrypoint.sh
 EXPOSE 80 443 3306 888
 
