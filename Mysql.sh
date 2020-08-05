@@ -31,13 +31,6 @@ TEMP_PWD=$(grep 'temporary password' /var/log/mysqld.log)
 PWD=${TEMP_PWD##* }
 echo "${PWD}"
 
-# 登录
-mysql -uroot -p${PWD}
-
-# 进入到mysql命令行时，修改密码
-# 修改密码
- ALTER USER 'root'@'localhost' IDENTIFIED BY 'Password!@';
-
 # 使用新密码登陆
 #exit
 # mysql -uroot -pSpus666!
