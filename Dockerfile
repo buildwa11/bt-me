@@ -19,9 +19,6 @@ RUN mkdir -p /www/letsencrypt \
 RUN cd /home \
     && yum -y update \
     && yum -y install wget httpd unzip 
-RUN
-    service httpd start \
-    && service httpd restart \
 RUN yum install php-mysql \
     && yum clean all \
     && yum makecache
